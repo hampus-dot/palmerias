@@ -28,6 +28,14 @@
 	const upcomingMatches = matches.filter((m) => !m.result).slice(0, 3);
 </script>
 
+<svelte:head>
+	<title>Palmerias FC - Where Heritage Meets Excellence</title>
+	<meta
+		name="description"
+		content="Founded in Dubai 2025, Palmerias FC brings together elite talent from across Europe with honor, pride, and dedication to excellence."
+	/>
+</svelte:head>
+
 <div class="min-h-screen bg-white dark:bg-black transition-colors">
 	<!-- Fixed Header with Theme Toggle -->
 	<header class="fixed top-0 right-0 z-50 p-4">
@@ -40,7 +48,7 @@
 		class="fixed left-4 top-4 z-50 rounded-lg bg-gray-100 p-2 dark:bg-gray-800 lg:hidden"
 		aria-label="Toggle menu"
 	>
-		<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+		<svg class="h-6 w-6 text-gray-900 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
 		</svg>
 	</button>
@@ -48,47 +56,56 @@
 	<!-- Mobile Menu -->
 	{#if mobileMenuOpen}
 		<div class="fixed inset-0 z-40 bg-white dark:bg-black lg:hidden">
+			<button
+				onclick={() => (mobileMenuOpen = false)}
+				class="absolute right-4 top-4 rounded-lg bg-gray-100 p-2 dark:bg-gray-800"
+				aria-label="Close menu"
+			>
+				<svg class="h-6 w-6 text-gray-900 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+				</svg>
+			</button>
 			<div class="flex h-full flex-col items-center justify-center gap-8 p-8">
 				<a
-					href="#players"
+					href="#heritage"
 					onclick={() => (mobileMenuOpen = false)}
 					class="text-2xl font-semibold text-gray-900 dark:text-white"
 				>
-					Players
+					Heritage
 				</a>
 				<a
-					href="#league"
+					href="#squad"
 					onclick={() => (mobileMenuOpen = false)}
 					class="text-2xl font-semibold text-gray-900 dark:text-white"
 				>
-					League
+					Squad
 				</a>
 				<a
-					href="#matches"
+					href="#standings"
 					onclick={() => (mobileMenuOpen = false)}
 					class="text-2xl font-semibold text-gray-900 dark:text-white"
 				>
-					Matches
+					Standings
 				</a>
 				<a
-					href="#contact"
+					href="#fixtures"
 					onclick={() => (mobileMenuOpen = false)}
 					class="text-2xl font-semibold text-gray-900 dark:text-white"
 				>
-					Contact
+					Fixtures
 				</a>
-				<div class="mt-8 flex flex-col gap-4">
+				<div class="mt-8 flex flex-col gap-4 w-full max-w-xs">
 					<a
 						href="/login"
 						class="rounded-full bg-black px-8 py-4 text-center text-lg font-semibold text-white dark:bg-white dark:text-black"
 					>
-						Player Login
+						Player Portal
 					</a>
 					<a
 						href="/login?type=manager"
 						class="rounded-full border-2 border-black px-8 py-4 text-center text-lg font-semibold text-black dark:border-white dark:text-white"
 					>
-						Manager Login
+						Manager Access
 					</a>
 				</div>
 			</div>
@@ -96,42 +113,78 @@
 	{/if}
 
 	<!-- Hero Section -->
-	<section class="relative overflow-hidden py-24 sm:py-32 lg:py-40">
+	<section class="relative overflow-hidden py-24 sm:py-32 lg:py-48">
 		<div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<div class="text-center">
+				<div class="mb-6">
+					<span class="text-sm font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-400">
+						Est. Dubai 2025
+					</span>
+				</div>
 				<h1 class="text-5xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl lg:text-8xl">
 					Palmerias FC
 				</h1>
-				<p class="mt-6 text-lg text-gray-600 dark:text-gray-400 sm:text-xl lg:text-2xl">
-					Where Passion Meets Performance
+				<p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-600 dark:text-gray-400 sm:text-xl lg:text-2xl">
+					Where <span class="font-semibold text-gray-900 dark:text-white">Heritage</span> Meets <span class="font-semibold text-gray-900 dark:text-white">Excellence</span>
 				</p>
-				<div class="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
+				<p class="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-gray-500 dark:text-gray-500 sm:text-lg">
+					Founded in the heart of Dubai, we unite elite talent from across Europe. Built on principles of
+					<span class="font-medium text-gray-700 dark:text-gray-300">honor</span>,
+					<span class="font-medium text-gray-700 dark:text-gray-300">pride</span>, and
+					<span class="font-medium text-gray-700 dark:text-gray-300">unwavering dedication</span> to the beautiful game.
+				</p>
+				<div class="mt-12 flex flex-col gap-4 sm:flex-row sm:justify-center">
 					<a
 						href="/login"
 						class="rounded-full bg-black px-8 py-4 text-center text-lg font-semibold text-white transition-all hover:scale-105 dark:bg-white dark:text-black"
 					>
-						Player Login
+						Player Portal
 					</a>
 					<a
 						href="/login?type=manager"
 						class="rounded-full border-2 border-black px-8 py-4 text-center text-lg font-semibold text-black transition-all hover:scale-105 dark:border-white dark:text-white"
 					>
-						Manager Login
+						Manager Access
 					</a>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Players Section -->
-	<section id="players" class="relative py-16 sm:py-24">
+	<!-- Heritage Section -->
+	<section id="heritage" class="border-t border-gray-200 py-16 dark:border-gray-800 sm:py-24">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<div class="mx-auto max-w-3xl text-center">
+				<h2 class="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
+					A Legacy of Excellence
+				</h2>
+				<div class="mt-8 space-y-6 text-left text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg">
+					<p>
+						In 2025, a vision was born in Dubai—to create a football club that transcends borders and
+						embodies the highest standards of the sport. Palmerias FC represents more than a team; it's
+						a brotherhood united by shared values.
+					</p>
+					<p>
+						Our roster brings together exceptional talent from across Europe, each player selected not
+						only for their skill but for their character, dedication, and commitment to honorable play.
+					</p>
+					<p class="font-medium text-gray-900 dark:text-white">
+						We play with pride. We compete with honor. We win with grace.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Squad Section -->
+	<section id="squad" class="border-t border-gray-200 py-16 dark:border-gray-800 sm:py-24">
 		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<div class="mb-12 text-center">
 				<h2 class="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl lg:text-5xl">
-					Our Stars
+					The Squad
 				</h2>
 				<p class="mt-4 text-base text-gray-600 dark:text-gray-400 sm:text-lg">
-					Top performers this season
+					Excellence across Europe, united in Dubai
 				</p>
 			</div>
 
@@ -161,7 +214,6 @@
 				{#each sortedPlayers.slice(0, 8) as player}
 					<BackgroundGradient containerClassName="h-full">
 						<div class="h-full rounded-[26px] bg-white p-6 dark:bg-zinc-900">
-							<!-- Player number background -->
 							<div class="mb-4 flex items-start justify-between">
 								<div>
 									<h3 class="text-lg font-bold text-gray-900 dark:text-white sm:text-xl">
@@ -210,12 +262,12 @@
 		</div>
 	</section>
 
-	<!-- League Table Section -->
-	<section id="league" class="py-16 sm:py-24">
+	<!-- League Standings Section -->
+	<section id="standings" class="border-t border-gray-200 py-16 dark:border-gray-800 sm:py-24">
 		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<div class="mb-12 text-center">
 				<h2 class="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl lg:text-5xl">
-					League Standing
+					League Standings
 				</h2>
 				<p class="mt-4 text-base text-gray-600 dark:text-gray-400 sm:text-lg">
 					Current season table
@@ -231,7 +283,7 @@
 									class="text-left text-xs font-medium uppercase tracking-wider text-gray-600 dark:text-gray-400"
 								>
 									<th class="px-3 py-3 sm:px-6 sm:py-4">Pos</th>
-									<th class="px-3 py-3 sm:px-6 sm:py-4">Team</th>
+									<th class="px-3 py-3 sm:px-6 sm:py-4">Club</th>
 									<th class="hidden px-3 py-3 text-center sm:table-cell sm:px-6 sm:py-4">P</th>
 									<th class="hidden px-3 py-3 text-center md:table-cell sm:px-6 sm:py-4">W</th>
 									<th class="hidden px-3 py-3 text-center md:table-cell sm:px-6 sm:py-4">D</th>
@@ -328,14 +380,14 @@
 		</div>
 	</section>
 
-	<!-- Schedule Section -->
-	<section id="matches" class="py-16 sm:py-24">
+	<!-- Fixtures Section -->
+	<section id="fixtures" class="border-t border-gray-200 py-16 dark:border-gray-800 sm:py-24">
 		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<div class="mb-12 text-center">
 				<h2 class="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl lg:text-5xl">
-					Upcoming Matches
+					Upcoming Fixtures
 				</h2>
-				<p class="mt-4 text-base text-gray-600 dark:text-gray-400 sm:text-lg">Next fixtures</p>
+				<p class="mt-4 text-base text-gray-600 dark:text-gray-400 sm:text-lg">Next matches</p>
 			</div>
 
 			<div class="grid gap-4 sm:gap-6 lg:grid-cols-3">
@@ -344,7 +396,11 @@
 						<div class="rounded-[26px] bg-white p-6 dark:bg-zinc-900 sm:p-8">
 							<div class="mb-4 text-center">
 								<p class="text-sm text-gray-600 dark:text-gray-400">
-									{new Date(match.date).toLocaleDateString('sv-SE')}
+									{new Date(match.date).toLocaleDateString('en-US', {
+										weekday: 'long',
+										month: 'long',
+										day: 'numeric'
+									})}
 								</p>
 								<p class="text-lg font-medium text-gray-900 dark:text-white">{match.time}</p>
 							</div>
@@ -374,7 +430,7 @@
 											: 'bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white'
 									)}
 								>
-									{match.homeAway}
+									{match.homeAway === 'Hemma' ? 'Home' : 'Away'}
 								</span>
 								<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{match.location}</p>
 							</div>
@@ -386,7 +442,7 @@
 	</section>
 
 	<!-- Contact Section -->
-	<section id="contact" class="py-16 sm:py-24">
+	<section class="border-t border-gray-200 py-16 dark:border-gray-800 sm:py-24">
 		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<BackgroundGradient>
 				<div class="rounded-[26px] bg-white px-6 py-12 text-center dark:bg-zinc-900 sm:px-8 sm:py-16">
@@ -394,7 +450,7 @@
 						Get In Touch
 					</h2>
 					<p class="mt-4 text-base text-gray-600 dark:text-gray-400 sm:text-lg">
-						Want to join Palmerias FC? Contact us today!
+						Interested in joining our journey? Contact us today.
 					</p>
 
 					<div class="mt-12 grid gap-6 sm:gap-8 sm:grid-cols-3">
@@ -405,7 +461,7 @@
 								<span class="text-2xl">📧</span>
 							</div>
 							<h3 class="text-lg font-semibold text-gray-900 dark:text-white">Email</h3>
-							<p class="mt-2 text-gray-600 dark:text-gray-400">info@palmeriasfc.se</p>
+							<p class="mt-2 text-gray-600 dark:text-gray-400">info@palmeriasfc.ae</p>
 						</div>
 						<div>
 							<div
@@ -414,7 +470,7 @@
 								<span class="text-2xl">📱</span>
 							</div>
 							<h3 class="text-lg font-semibold text-gray-900 dark:text-white">Phone</h3>
-							<p class="mt-2 text-gray-600 dark:text-gray-400">+46 70 123 45 67</p>
+							<p class="mt-2 text-gray-600 dark:text-gray-400">+971 4 123 4567</p>
 						</div>
 						<div>
 							<div
@@ -423,7 +479,7 @@
 								<span class="text-2xl">📍</span>
 							</div>
 							<h3 class="text-lg font-semibold text-gray-900 dark:text-white">Location</h3>
-							<p class="mt-2 text-gray-600 dark:text-gray-400">Palmeriavallen, Göteborg</p>
+							<p class="mt-2 text-gray-600 dark:text-gray-400">Dubai, United Arab Emirates</p>
 						</div>
 					</div>
 				</div>
@@ -434,8 +490,11 @@
 	<!-- Footer -->
 	<footer class="border-t border-gray-200 py-8 dark:border-gray-800 sm:py-12">
 		<div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-			<p class="text-gray-600 dark:text-gray-400">
-				&copy; 2025 Palmerias FC. All rights reserved.
+			<p class="text-sm text-gray-600 dark:text-gray-400">
+				&copy; 2025 Palmerias FC. Founded in Dubai with pride and honor.
+			</p>
+			<p class="mt-2 text-xs text-gray-500 dark:text-gray-500">
+				Excellence across Europe, united in the UAE
 			</p>
 		</div>
 	</footer>
