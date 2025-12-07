@@ -1,38 +1,221 @@
-# sv
+# ⚽ Palmerias FC - Football Team Management Platform
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A modern, full-featured football team management platform built with SvelteKit and Tailwind CSS. Designed with inspiration from Dubai Palm and premium sports platforms.
 
-## Creating a project
+## ✨ Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+### 🏠 Landing Page
+- **Hero Section** with gradient animations and modern design
+- **Player Showcase** with sortable stats (Goals, Assists, Appearances)
+- **League Table** showing current standings for 10 teams
+- **Upcoming Matches** preview
+- **Contact Section** with team information
 
-```sh
-# create a new project in the current directory
-npx sv create
+### 🔐 Authentication System
+- Separate login flows for **Players** and **Managers**
+- Role-based dashboards
+- Demo credentials:
+  - Manager: `manager@palmerias.se` / `manager`
+  - Player: Any email/password
 
-# create a new project in my-app
-npx sv create my-app
-```
+### 👔 Manager Dashboard
+- **Create Training Sessions** with modal-based forms
+- **Schedule Matches** against opponents
+- **Team Overview** with quick stats
+- **Navigation** to all team features
 
-## Developing
+### 👟 Player View
+- **Availability Tracking** for training sessions
+- **Match Availability** with Yes/No/Maybe options
+- **Schedule Overview** of upcoming events
+- **Personal Dashboard**
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### 📊 Advanced Analytics
 
-```sh
+#### Training Attendance Chart
+- Individual player attendance percentages
+- Overall team attendance rate
+- Average players per session
+- Most dedicated player highlight
+
+#### Tactical Stats with Scout AI 🤖
+- **Form Overview**: Wins, Draws, Losses with percentages
+- **Goal Analysis**: Goals scored/conceded per game
+- **Home vs Away Performance**: Win rates comparison
+- **Fun Insights**: Clean sheets, high-scoring games, goal difference
+- **Scout AI Comments**: Automated tactical insights
+
+### 🎯 Full Dashboard Features
+- **Player Management**: Complete roster with stats
+- **Training Schedule**: Full training calendar
+- **Match Calendar**: Past and upcoming matches
+- **Detailed Statistics**: Comprehensive team and player stats
+- **Sidebar Navigation**: Easy access to all features
+
+## 🛠️ Tech Stack
+
+- **Framework**: SvelteKit (TypeScript)
+- **Styling**: Tailwind CSS v4
+- **Charts**: Custom SVG-based charts
+- **Utilities**: clsx, tailwind-merge
+- **Deployment**: Vercel
+- **Package Manager**: npm
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+ and npm
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/hampus-dot/palmerias.git
+
+# Navigate to project
+cd palmerias
+
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+# Open browser
+# Visit http://localhost:5173
 ```
 
-## Building
+### Building for Production
 
-To create a production version of your app:
-
-```sh
+```bash
+# Build the application
 npm run build
+
+# Preview production build
+npm run preview
 ```
 
-You can preview the production build with `npm run preview`.
+## 📁 Project Structure
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+```
+palmerias/
+├── src/
+│   ├── lib/
+│   │   ├── components/
+│   │   │   ├── Card.svelte
+│   │   │   ├── Sidebar.svelte
+│   │   │   ├── TrainingAttendanceChart.svelte
+│   │   │   └── TacticalStats.svelte
+│   │   └── data/
+│   │       ├── players.ts
+│   │       ├── matches.ts
+│   │       ├── training.ts
+│   │       ├── league.ts
+│   │       └── availability.ts
+│   └── routes/
+│       ├── (public)/
+│       │   ├── +page.svelte          # Landing page
+│       │   └── login/
+│       │       └── +page.svelte      # Login page
+│       └── (auth)/
+│           ├── dashboard/            # Team dashboard
+│           ├── manager/              # Manager features
+│           └── player/               # Player features
+├── static/
+├── package.json
+└── svelte.config.js
+```
+
+## 🎨 Design Highlights
+
+- **Modern Gradients**: Blue, purple, and pink color schemes
+- **Responsive Design**: Mobile-first approach
+- **Smooth Animations**: Hover effects and transitions
+- **Glass Morphism**: Backdrop blur effects
+- **Card-Based Layout**: Apple-inspired UI cards
+- **Progressive Enhancement**: Works without JavaScript
+
+## 📋 Data Models
+
+### Player
+```typescript
+{
+  id: number
+  name: string
+  number: number
+  position: string
+  roles: ('player' | 'coach')[]
+  matchesPlayed: number
+  goals: number
+  assists: number
+}
+```
+
+### Match
+```typescript
+{
+  id: number
+  date: string
+  time: string
+  opponent: string
+  homeAway: 'Hemma' | 'Borta'
+  result?: {
+    goalsFor: number
+    goalsAgainst: number
+  }
+  location: string
+}
+```
+
+### Training Session
+```typescript
+{
+  id: number
+  date: string
+  time: string
+  location: string
+  type: 'Lagtränning' | 'Matchförberedelse' | 'Taktik' | 'Fysträning'
+  attendance: number[]
+  notes?: string
+}
+```
+
+## 🌐 Deployment
+
+This project is configured for Vercel deployment:
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+```
+
+Or connect your GitHub repository to Vercel for automatic deployments.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+MIT License - feel free to use this project for your own team!
+
+## 🙏 Acknowledgments
+
+- Inspired by Dubai Palm design aesthetic
+- Built with modern Svelte 5 features
+- Tailwind CSS for rapid styling
+- Community feedback and suggestions
+
+## 📞 Contact
+
+For questions or suggestions:
+- Email: info@palmeriasfc.se
+- Phone: +46 70 123 45 67
+- Location: Palmeriavallen, Göteborg
+
+---
+
+**Built with ❤️ for Palmerias FC**
