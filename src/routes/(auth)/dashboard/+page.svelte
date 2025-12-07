@@ -31,139 +31,181 @@
 			day: 'numeric'
 		});
 	}
+
+	const winRate = playedMatches.length > 0 ? ((wins / playedMatches.length) * 100).toFixed(0) : 0;
 </script>
 
-<div class="space-y-6">
-	<div>
-		<h1 class="text-3xl font-bold text-slate-900 dark:text-white">Overview</h1>
-		<p class="mt-2 text-slate-600 dark:text-slate-400">Welcome to Palmerias FC platform</p>
+<div class="space-y-8">
+	<!-- Header -->
+	<div class="space-y-2">
+		<h1 class="text-4xl font-bold tracking-tight text-slate-900 dark:text-white">Dashboard</h1>
+		<p class="text-slate-600 dark:text-slate-400">Welcome back to Palmerias FC</p>
 	</div>
 
-	<!-- Stats Cards -->
-	<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-		<Card>
-			<div class="text-center">
-				<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Total Players</p>
-				<p class="mt-2 text-3xl font-bold text-slate-900 dark:text-white">{totalPlayers}</p>
-				<p class="mt-1 text-xs text-slate-500 dark:text-slate-500">{coaches} coaches</p>
+	<!-- Key Metrics -->
+	<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+		<!-- Total Players -->
+		<div class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
+			<div class="flex items-center justify-between">
+				<div class="space-y-1">
+					<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Total Players</p>
+					<p class="text-3xl font-bold text-slate-900 dark:text-white">{totalPlayers}</p>
+					<p class="text-xs text-slate-500 dark:text-slate-500">{coaches} coaches</p>
+				</div>
+				<div class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-2xl dark:bg-blue-950">
+					👥
+				</div>
 			</div>
-		</Card>
+		</div>
 
-		<Card>
-			<div class="text-center">
-				<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Matches Played</p>
-				<p class="mt-2 text-3xl font-bold text-slate-900 dark:text-white">{playedMatches.length}</p>
-				<p class="mt-1 text-xs text-slate-500 dark:text-slate-500">
-					{wins}W {draws}D {losses}L
-				</p>
+		<!-- Win Rate -->
+		<div class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
+			<div class="flex items-center justify-between">
+				<div class="space-y-1">
+					<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Win Rate</p>
+					<p class="text-3xl font-bold text-green-600 dark:text-green-500">{winRate}%</p>
+					<p class="text-xs text-slate-500 dark:text-slate-500">{wins}W {draws}D {losses}L</p>
+				</div>
+				<div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-50 text-2xl dark:bg-green-950">
+					🏆
+				</div>
 			</div>
-		</Card>
+		</div>
 
-		<Card>
-			<div class="text-center">
-				<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Total Goals</p>
-				<p class="mt-2 text-3xl font-bold text-green-600 dark:text-green-500">{totalGoals}</p>
-				<p class="mt-1 text-xs text-slate-500 dark:text-slate-500">{totalAssists} assists</p>
+		<!-- Total Goals -->
+		<div class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
+			<div class="flex items-center justify-between">
+				<div class="space-y-1">
+					<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Total Goals</p>
+					<p class="text-3xl font-bold text-orange-600 dark:text-orange-500">{totalGoals}</p>
+					<p class="text-xs text-slate-500 dark:text-slate-500">{totalAssists} assists</p>
+				</div>
+				<div class="flex h-12 w-12 items-center justify-center rounded-full bg-orange-50 text-2xl dark:bg-orange-950">
+					⚽
+				</div>
 			</div>
-		</Card>
+		</div>
 
-		<Card>
-			<div class="text-center">
-				<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Trainings</p>
-				<p class="mt-2 text-3xl font-bold text-slate-900 dark:text-white">{trainingSessions.length}</p>
-				<p class="mt-1 text-xs text-slate-500 dark:text-slate-500">scheduled</p>
+		<!-- Trainings -->
+		<div class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
+			<div class="flex items-center justify-between">
+				<div class="space-y-1">
+					<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Trainings</p>
+					<p class="text-3xl font-bold text-purple-600 dark:text-purple-500">{trainingSessions.length}</p>
+					<p class="text-xs text-slate-500 dark:text-slate-500">scheduled</p>
+				</div>
+				<div class="flex h-12 w-12 items-center justify-center rounded-full bg-purple-50 text-2xl dark:bg-purple-950">
+					📅
+				</div>
 			</div>
-		</Card>
+		</div>
 	</div>
 
+	<!-- Upcoming Events -->
 	<div class="grid gap-6 lg:grid-cols-2">
 		<!-- Next Match -->
 		{#if nextMatch}
-			<Card title="Next Match" description="Upcoming fixture">
-				<div class="space-y-3">
-					<div class="flex items-center justify-between">
-						<div>
-							<p class="text-lg font-semibold text-slate-900 dark:text-white">
-								Palmerias vs {nextMatch.opponent}
-							</p>
-							<p class="text-sm text-slate-600 dark:text-slate-400">{formatDate(nextMatch.date)} • {nextMatch.time}</p>
-						</div>
-						<span
-							class="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-						>
-							{nextMatch.homeAway}
-						</span>
-					</div>
-					<p class="text-sm text-slate-600 dark:text-slate-400">
-						<span class="font-medium">Location:</span>
-						{nextMatch.location}
-					</p>
+			<div class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
+				<div class="mb-4 flex items-center justify-between">
+					<h2 class="text-lg font-semibold text-slate-900 dark:text-white">Next Match</h2>
+					<span class="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700 dark:bg-blue-950 dark:text-blue-300">
+						{nextMatch.homeAway}
+					</span>
 				</div>
-			</Card>
+				<div class="space-y-4">
+					<div class="flex items-center justify-center gap-4 py-4">
+						<div class="text-center">
+							<div class="mb-2 text-2xl font-bold text-slate-900 dark:text-white">Palmerias</div>
+							<div class="text-sm text-slate-500 dark:text-slate-500">FC</div>
+						</div>
+						<div class="text-3xl font-bold text-slate-400 dark:text-slate-600">vs</div>
+						<div class="text-center">
+							<div class="mb-2 text-2xl font-bold text-slate-900 dark:text-white">{nextMatch.opponent}</div>
+							<div class="text-sm text-slate-500 dark:text-slate-500">FC</div>
+						</div>
+					</div>
+					<div class="flex items-center justify-between rounded-lg bg-slate-50 p-4 dark:bg-slate-800">
+						<div class="flex items-center gap-2">
+							<span class="text-xl">📍</span>
+							<span class="text-sm text-slate-600 dark:text-slate-400">{nextMatch.location}</span>
+						</div>
+						<div class="flex items-center gap-2">
+							<span class="text-xl">🕐</span>
+							<span class="text-sm font-medium text-slate-900 dark:text-white">{formatDate(nextMatch.date)} • {nextMatch.time}</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		{/if}
 
 		<!-- Next Training -->
 		{#if upcomingTraining}
-			<Card title="Next Training" description="Upcoming session">
-				<div class="space-y-3">
-					<div class="flex items-center justify-between">
-						<div>
-							<p class="text-lg font-semibold text-slate-900 dark:text-white">{upcomingTraining.type}</p>
-							<p class="text-sm text-slate-600 dark:text-slate-400">
-								{formatDate(upcomingTraining.date)} • {upcomingTraining.time}
-							</p>
-						</div>
-						<div class="text-right">
-							<p class="text-xl font-bold text-slate-900 dark:text-white">{upcomingTraining.attendance.length}</p>
-							<p class="text-xs text-slate-500 dark:text-slate-500">/{totalPlayers}</p>
+			<div class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
+				<div class="mb-4 flex items-center justify-between">
+					<h2 class="text-lg font-semibold text-slate-900 dark:text-white">Next Training</h2>
+					<div class="flex items-center gap-2">
+						<span class="text-2xl font-bold text-slate-900 dark:text-white">{upcomingTraining.attendance.length}</span>
+						<span class="text-sm text-slate-500 dark:text-slate-500">/ {totalPlayers}</span>
+					</div>
+				</div>
+				<div class="space-y-4">
+					<div class="space-y-2">
+						<div class="text-xl font-semibold text-slate-900 dark:text-white">{upcomingTraining.type}</div>
+						<div class="flex items-center gap-4 text-sm text-slate-600 dark:text-slate-400">
+							<div class="flex items-center gap-2">
+								<span>🕐</span>
+								<span>{formatDate(upcomingTraining.date)} • {upcomingTraining.time}</span>
+							</div>
 						</div>
 					</div>
-					<p class="text-sm text-slate-600 dark:text-slate-400">
-						<span class="font-medium">Location:</span>
-						{upcomingTraining.location}
-					</p>
-					{#if upcomingTraining.notes}
-						<p class="text-sm text-slate-600 dark:text-slate-400">
-							<span class="font-medium">Notes:</span>
-							{upcomingTraining.notes}
-						</p>
-					{/if}
+					<div class="rounded-lg bg-slate-50 p-4 dark:bg-slate-800">
+						<div class="mb-2 flex items-center gap-2">
+							<span>📍</span>
+							<span class="text-sm font-medium text-slate-900 dark:text-white">{upcomingTraining.location}</span>
+						</div>
+						{#if upcomingTraining.notes}
+							<p class="text-sm text-slate-600 dark:text-slate-400">{upcomingTraining.notes}</p>
+						{/if}
+					</div>
 				</div>
-			</Card>
+			</div>
 		{/if}
 	</div>
 
-	<!-- Charts Section -->
+	<!-- Analytics -->
 	<div class="grid gap-6 lg:grid-cols-2">
-		<Card title="Training Attendance" description="Player participation tracking">
+		<div class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
+			<h2 class="mb-4 text-lg font-semibold text-slate-900 dark:text-white">Training Attendance</h2>
 			<TrainingAttendanceChart />
-		</Card>
+		</div>
 
-		<Card title="Tactical Analysis" description="Performance metrics & Scout AI">
+		<div class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
+			<h2 class="mb-4 text-lg font-semibold text-slate-900 dark:text-white">Tactical Analysis</h2>
 			<TacticalStats />
-		</Card>
+		</div>
 	</div>
 
 	<!-- Top Scorers -->
-	<Card title="Top Scorers" description="Top 5 goal scorers">
-		<div class="space-y-3">
+	<div class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
+		<h2 class="mb-6 text-lg font-semibold text-slate-900 dark:text-white">Top Scorers</h2>
+		<div class="space-y-4">
 			{#each topScorers as player, index}
-				<div class="flex items-center justify-between">
-					<div class="flex items-center gap-3">
-						<div class="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700">
-							<span class="text-sm font-bold text-slate-700 dark:text-slate-300">{index + 1}</span>
-						</div>
-						<div>
-							<p class="font-medium text-slate-900 dark:text-white">{player.name}</p>
-							<p class="text-xs text-slate-500 dark:text-slate-500">#{player.number} • {player.position}</p>
-						</div>
+				<div class="flex items-center gap-4">
+					<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 font-bold text-white">
+						{index + 1}
 					</div>
-					<div class="text-right">
-						<p class="text-lg font-bold text-slate-900 dark:text-white">{player.goals}</p>
-						<p class="text-xs text-slate-500 dark:text-slate-500">{player.assists} assists</p>
+					<div class="flex flex-1 items-center justify-between">
+						<div>
+							<div class="font-medium text-slate-900 dark:text-white">{player.name}</div>
+							<div class="text-sm text-slate-500 dark:text-slate-500">#{player.number} • {player.position}</div>
+						</div>
+						<div class="text-right">
+							<div class="text-2xl font-bold text-slate-900 dark:text-white">{player.goals}</div>
+							<div class="text-xs text-slate-500 dark:text-slate-500">{player.assists} assists</div>
+						</div>
 					</div>
 				</div>
 			{/each}
 		</div>
-	</Card>
+	</div>
 </div>
