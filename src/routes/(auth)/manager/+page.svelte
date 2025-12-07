@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Card from '$lib/components/Card.svelte';
+	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import { players } from '$lib/data/players';
 	import { matches } from '$lib/data/matches';
 	import { trainingSessions } from '$lib/data/training';
@@ -14,7 +15,7 @@
 		date: '',
 		time: '',
 		location: 'Palmeriavallen',
-		type: 'Lagtränning' as 'Lagtränning' | 'Matchförberedelse' | 'Taktik' | 'Fysträning',
+		type: 'Team Training' as 'Team Training' | 'Match Preparation' | 'Tactics' | 'Physical Training',
 		notes: ''
 	});
 
@@ -23,7 +24,7 @@
 		date: '',
 		time: '',
 		opponent: '',
-		homeAway: 'Hemma' as 'Hemma' | 'Borta',
+		homeAway: 'Home' as 'Home' | 'Away',
 		location: 'Palmeriavallen'
 	});
 
@@ -41,7 +42,7 @@
 			date: '',
 			time: '',
 			location: 'Palmeriavallen',
-			type: 'Lagtränning',
+			type: 'Team Training',
 			notes: ''
 		};
 	}
@@ -55,7 +56,7 @@
 			date: '',
 			time: '',
 			opponent: '',
-			homeAway: 'Hemma',
+			homeAway: 'Home',
 			location: 'Palmeriavallen'
 		};
 	}
@@ -65,21 +66,24 @@
 	const upcomingTrainings = trainingSessions.length;
 </script>
 
-<div class="min-h-screen bg-slate-50">
+<div class="min-h-screen bg-slate-50 dark:bg-slate-900">
 	<!-- Header -->
-	<header class="border-b border-slate-200 bg-white">
+	<header class="border-b border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
 		<div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
 			<div class="flex items-center justify-between">
 				<div>
-					<h1 class="text-2xl font-bold text-slate-900">Manager Dashboard</h1>
-					<p class="text-sm text-slate-600">Manage your team</p>
+					<h1 class="text-2xl font-bold text-slate-900 dark:text-white">Manager Dashboard</h1>
+					<p class="text-sm text-slate-600 dark:text-slate-400">Manage your team</p>
 				</div>
-				<button
-					onclick={logout}
-					class="rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700"
-				>
-					Logout
-				</button>
+				<div class="flex items-center gap-3">
+					<ThemeToggle />
+					<button
+						onclick={logout}
+						class="rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800"
+					>
+						Logout
+					</button>
+				</div>
 			</div>
 		</div>
 	</header>
@@ -89,20 +93,20 @@
 		<div class="mb-8 grid gap-6 sm:grid-cols-3">
 			<Card>
 				<div class="text-center">
-					<p class="text-sm font-medium text-slate-600">Total Players</p>
-					<p class="mt-2 text-3xl font-bold text-slate-900">{totalPlayers}</p>
+					<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Total Players</p>
+					<p class="mt-2 text-3xl font-bold text-slate-900 dark:text-white">{totalPlayers}</p>
 				</div>
 			</Card>
 			<Card>
 				<div class="text-center">
-					<p class="text-sm font-medium text-slate-600">Upcoming Matches</p>
-					<p class="mt-2 text-3xl font-bold text-slate-900">{upcomingMatches}</p>
+					<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Upcoming Matches</p>
+					<p class="mt-2 text-3xl font-bold text-slate-900 dark:text-white">{upcomingMatches}</p>
 				</div>
 			</Card>
 			<Card>
 				<div class="text-center">
-					<p class="text-sm font-medium text-slate-600">Scheduled Trainings</p>
-					<p class="mt-2 text-3xl font-bold text-slate-900">{upcomingTrainings}</p>
+					<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Scheduled Trainings</p>
+					<p class="mt-2 text-3xl font-bold text-slate-900 dark:text-white">{upcomingTrainings}</p>
 				</div>
 			</Card>
 		</div>
@@ -133,27 +137,27 @@
 			<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 				<a
 					href="/dashboard/players"
-					class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50"
+					class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-blue-600 dark:hover:bg-slate-700"
 				>
-					<p class="font-medium text-slate-900">Players</p>
+					<p class="font-medium text-slate-900 dark:text-white">Players</p>
 				</a>
 				<a
 					href="/dashboard/training"
-					class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50"
+					class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-blue-600 dark:hover:bg-slate-700"
 				>
-					<p class="font-medium text-slate-900">Trainings</p>
+					<p class="font-medium text-slate-900 dark:text-white">Trainings</p>
 				</a>
 				<a
 					href="/dashboard/matches"
-					class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50"
+					class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-blue-600 dark:hover:bg-slate-700"
 				>
-					<p class="font-medium text-slate-900">Matches</p>
+					<p class="font-medium text-slate-900 dark:text-white">Matches</p>
 				</a>
 				<a
 					href="/dashboard/stats"
-					class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50"
+					class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-blue-600 dark:hover:bg-slate-700"
 				>
-					<p class="font-medium text-slate-900">Statistics</p>
+					<p class="font-medium text-slate-900 dark:text-white">Statistics</p>
 				</a>
 			</div>
 		</Card>
@@ -163,61 +167,61 @@
 <!-- Create Training Modal -->
 {#if showCreateTraining}
 	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-		<div class="w-full max-w-2xl rounded-2xl bg-white p-8">
-			<h2 class="mb-6 text-2xl font-bold text-slate-900">Create Training Session</h2>
+		<div class="w-full max-w-2xl rounded-2xl bg-white p-8 dark:bg-slate-800">
+			<h2 class="mb-6 text-2xl font-bold text-slate-900 dark:text-white">Create Training Session</h2>
 
 			<form onsubmit={(e) => { e.preventDefault(); createTraining(); }} class="space-y-4">
 				<div class="grid gap-4 sm:grid-cols-2">
 					<div>
-						<label class="block text-sm font-medium text-slate-700">Date</label>
+						<label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Date</label>
 						<input
 							type="date"
 							bind:value={newTraining.date}
-							class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+							class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
 							required
 						/>
 					</div>
 					<div>
-						<label class="block text-sm font-medium text-slate-700">Time</label>
+						<label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Time</label>
 						<input
 							type="text"
 							bind:value={newTraining.time}
 							placeholder="18:00 - 20:00"
-							class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+							class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
 							required
 						/>
 					</div>
 				</div>
 
 				<div>
-					<label class="block text-sm font-medium text-slate-700">Type</label>
+					<label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Type</label>
 					<select
 						bind:value={newTraining.type}
-						class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+						class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
 					>
-						<option value="Lagtränning">Lagtränning</option>
-						<option value="Matchförberedelse">Matchförberedelse</option>
-						<option value="Taktik">Taktik</option>
-						<option value="Fysträning">Fysträning</option>
+						<option value="Team Training">Team Training</option>
+						<option value="Match Preparation">Match Preparation</option>
+						<option value="Tactics">Tactics</option>
+						<option value="Physical Training">Physical Training</option>
 					</select>
 				</div>
 
 				<div>
-					<label class="block text-sm font-medium text-slate-700">Location</label>
+					<label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Location</label>
 					<input
 						type="text"
 						bind:value={newTraining.location}
-						class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+						class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
 						required
 					/>
 				</div>
 
 				<div>
-					<label class="block text-sm font-medium text-slate-700">Notes</label>
+					<label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Notes</label>
 					<textarea
 						bind:value={newTraining.notes}
 						rows="3"
-						class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+						class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
 					></textarea>
 				</div>
 
@@ -244,59 +248,59 @@
 <!-- Create Match Modal -->
 {#if showCreateMatch}
 	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-		<div class="w-full max-w-2xl rounded-2xl bg-white p-8">
-			<h2 class="mb-6 text-2xl font-bold text-slate-900">Create Match</h2>
+		<div class="w-full max-w-2xl rounded-2xl bg-white p-8 dark:bg-slate-800">
+			<h2 class="mb-6 text-2xl font-bold text-slate-900 dark:text-white">Create Match</h2>
 
 			<form onsubmit={(e) => { e.preventDefault(); createMatch(); }} class="space-y-4">
 				<div class="grid gap-4 sm:grid-cols-2">
 					<div>
-						<label class="block text-sm font-medium text-slate-700">Date</label>
+						<label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Date</label>
 						<input
 							type="date"
 							bind:value={newMatch.date}
-							class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+							class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
 							required
 						/>
 					</div>
 					<div>
-						<label class="block text-sm font-medium text-slate-700">Time</label>
+						<label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Time</label>
 						<input
 							type="text"
 							bind:value={newMatch.time}
 							placeholder="15:00"
-							class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+							class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
 							required
 						/>
 					</div>
 				</div>
 
 				<div>
-					<label class="block text-sm font-medium text-slate-700">Opponent</label>
+					<label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Opponent</label>
 					<input
 						type="text"
 						bind:value={newMatch.opponent}
-						class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+						class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
 						required
 					/>
 				</div>
 
 				<div>
-					<label class="block text-sm font-medium text-slate-700">Home/Away</label>
+					<label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Home/Away</label>
 					<select
 						bind:value={newMatch.homeAway}
-						class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+						class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
 					>
-						<option value="Hemma">Hemma</option>
-						<option value="Borta">Borta</option>
+						<option value="Home">Home</option>
+						<option value="Away">Away</option>
 					</select>
 				</div>
 
 				<div>
-					<label class="block text-sm font-medium text-slate-700">Location</label>
+					<label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Location</label>
 					<input
 						type="text"
 						bind:value={newMatch.location}
-						class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+						class="mt-1 block w-full rounded-lg border border-slate-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
 						required
 					/>
 				</div>

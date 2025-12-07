@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Card from '$lib/components/Card.svelte';
+	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import { matches } from '$lib/data/matches';
 	import { trainingSessions } from '$lib/data/training';
 	import { cn } from '$lib/utils';
@@ -23,21 +24,24 @@
 	const upcomingTrainings = trainingSessions.slice(0, 4);
 </script>
 
-<div class="min-h-screen bg-slate-50">
+<div class="min-h-screen bg-slate-50 dark:bg-slate-900">
 	<!-- Header -->
-	<header class="border-b border-slate-200 bg-white">
+	<header class="border-b border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
 		<div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
 			<div class="flex items-center justify-between">
 				<div>
-					<h1 class="text-2xl font-bold text-slate-900">Player Dashboard</h1>
-					<p class="text-sm text-slate-600">Your schedule and availability</p>
+					<h1 class="text-2xl font-bold text-slate-900 dark:text-white">Player Dashboard</h1>
+					<p class="text-sm text-slate-600 dark:text-slate-400">Your schedule and availability</p>
 				</div>
-				<button
-					onclick={logout}
-					class="rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700"
-				>
-					Logout
-				</button>
+				<div class="flex items-center gap-3">
+					<ThemeToggle />
+					<button
+						onclick={logout}
+						class="rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800"
+					>
+						Logout
+					</button>
+				</div>
 			</div>
 		</div>
 	</header>
@@ -48,16 +52,16 @@
 			<div class="space-y-4">
 				{#each upcomingTrainings as training}
 					{@const key = `training-${training.id}`}
-					<div class="rounded-lg border border-slate-200 p-4">
+					<div class="rounded-lg border border-slate-200 p-4 dark:border-slate-700 dark:bg-slate-800">
 						<div class="mb-3 flex items-start justify-between">
 							<div>
-								<h3 class="font-semibold text-slate-900">{training.type}</h3>
-								<p class="text-sm text-slate-600">
-									{new Date(training.date).toLocaleDateString('sv-SE')} • {training.time}
+								<h3 class="font-semibold text-slate-900 dark:text-white">{training.type}</h3>
+								<p class="text-sm text-slate-600 dark:text-slate-400">
+									{new Date(training.date).toLocaleDateString('en-US')} • {training.time}
 								</p>
-								<p class="text-sm text-slate-600">{training.location}</p>
+								<p class="text-sm text-slate-600 dark:text-slate-400">{training.location}</p>
 								{#if training.notes}
-									<p class="mt-1 text-sm text-slate-500">{training.notes}</p>
+									<p class="mt-1 text-sm text-slate-500 dark:text-slate-500">{training.notes}</p>
 								{/if}
 							</div>
 						</div>
@@ -108,22 +112,22 @@
 				<div class="space-y-4">
 					{#each upcomingMatches as match}
 						{@const key = `match-${match.id}`}
-						<div class="rounded-lg border border-slate-200 p-4">
+						<div class="rounded-lg border border-slate-200 p-4 dark:border-slate-700 dark:bg-slate-800">
 							<div class="mb-3 flex items-start justify-between">
 								<div>
-									<h3 class="font-semibold text-slate-900">
+									<h3 class="font-semibold text-slate-900 dark:text-white">
 										Palmerias vs {match.opponent}
 									</h3>
-									<p class="text-sm text-slate-600">
-										{new Date(match.date).toLocaleDateString('sv-SE')} • {match.time}
+									<p class="text-sm text-slate-600 dark:text-slate-400">
+										{new Date(match.date).toLocaleDateString('en-US')} • {match.time}
 									</p>
-									<p class="text-sm text-slate-600">{match.location}</p>
+									<p class="text-sm text-slate-600 dark:text-slate-400">{match.location}</p>
 									<span
 										class={cn(
 											'mt-2 inline-block rounded-full px-3 py-1 text-xs font-medium',
-											match.homeAway === 'Hemma'
-												? 'bg-green-100 text-green-800'
-												: 'bg-blue-100 text-blue-800'
+											match.homeAway === 'Home'
+												? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+												: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
 										)}
 									>
 										{match.homeAway}
@@ -178,27 +182,27 @@
 				<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 					<a
 						href="/dashboard/players"
-						class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50"
+						class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-blue-600 dark:hover:bg-slate-700"
 					>
-						<p class="font-medium text-slate-900">Team</p>
+						<p class="font-medium text-slate-900 dark:text-white">Team</p>
 					</a>
 					<a
 						href="/dashboard/matches"
-						class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50"
+						class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-blue-600 dark:hover:bg-slate-700"
 					>
-						<p class="font-medium text-slate-900">Matches</p>
+						<p class="font-medium text-slate-900 dark:text-white">Matches</p>
 					</a>
 					<a
 						href="/dashboard/stats"
-						class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50"
+						class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-blue-600 dark:hover:bg-slate-700"
 					>
-						<p class="font-medium text-slate-900">Statistics</p>
+						<p class="font-medium text-slate-900 dark:text-white">Statistics</p>
 					</a>
 					<a
 						href="/dashboard/training"
-						class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50"
+						class="rounded-lg border border-slate-200 p-4 text-center transition-all hover:border-blue-500 hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:border-blue-600 dark:hover:bg-slate-700"
 					>
-						<p class="font-medium text-slate-900">All Trainings</p>
+						<p class="font-medium text-slate-900 dark:text-white">All Trainings</p>
 					</a>
 				</div>
 			</Card>

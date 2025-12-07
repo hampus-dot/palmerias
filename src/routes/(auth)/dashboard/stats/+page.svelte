@@ -26,98 +26,98 @@
 
 <div class="space-y-6">
 	<div>
-		<h1 class="text-3xl font-bold text-slate-900">Statistik</h1>
-		<p class="mt-2 text-slate-600">Detaljerad lagsstatistik och spelarprestationer</p>
+		<h1 class="text-3xl font-bold text-slate-900 dark:text-white">Statistics</h1>
+		<p class="mt-2 text-slate-600 dark:text-slate-400">Detailed team statistics and player performances</p>
 	</div>
 
-	<!-- Lagstatistik -->
-	<Card title="Lagstatistik" description="Säsongens resultat">
+	<!-- Team Stats -->
+	<Card title="Team Statistics" description="Season results">
 		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
 			<div>
-				<p class="text-sm font-medium text-slate-600">Matcher</p>
-				<p class="mt-1 text-2xl font-bold text-slate-900">{playedMatches.length}</p>
-				<p class="mt-1 text-xs text-slate-500">{wins}V {draws}O {losses}F</p>
+				<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Matches</p>
+				<p class="mt-1 text-2xl font-bold text-slate-900 dark:text-white">{playedMatches.length}</p>
+				<p class="mt-1 text-xs text-slate-500 dark:text-slate-500">{wins}W {draws}D {losses}L</p>
 			</div>
 			<div>
-				<p class="text-sm font-medium text-slate-600">Vinstprocent</p>
-				<p class="mt-1 text-2xl font-bold text-green-600">{winRate}%</p>
+				<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Win Rate</p>
+				<p class="mt-1 text-2xl font-bold text-green-600 dark:text-green-500">{winRate}%</p>
 			</div>
 			<div>
-				<p class="text-sm font-medium text-slate-600">Mål per match</p>
-				<p class="mt-1 text-2xl font-bold text-slate-900">{avgGoalsFor}</p>
+				<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Goals per Match</p>
+				<p class="mt-1 text-2xl font-bold text-slate-900 dark:text-white">{avgGoalsFor}</p>
 			</div>
 			<div>
-				<p class="text-sm font-medium text-slate-600">Insläppta per match</p>
-				<p class="mt-1 text-2xl font-bold text-red-600">{avgGoalsAgainst}</p>
+				<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Conceded per Match</p>
+				<p class="mt-1 text-2xl font-bold text-red-600 dark:text-red-500">{avgGoalsAgainst}</p>
 			</div>
 		</div>
 	</Card>
 
 	<div class="grid gap-6 lg:grid-cols-3">
-		<!-- Skytteliga -->
-		<Card title="Målskyttar" description="Flest mål">
+		<!-- Top Scorers -->
+		<Card title="Goal Scorers" description="Most goals">
 			<div class="space-y-2">
 				{#each sortedByGoals.slice(0, 10) as player, index}
 					<div class="flex items-center justify-between py-2">
 						<div class="flex items-center gap-2">
-							<span class="w-6 text-sm font-medium text-slate-500">{index + 1}.</span>
+							<span class="w-6 text-sm font-medium text-slate-500 dark:text-slate-500">{index + 1}.</span>
 							<div>
-								<p class="text-sm font-medium text-slate-900">{player.name}</p>
-								<p class="text-xs text-slate-500">#{player.number}</p>
+								<p class="text-sm font-medium text-slate-900 dark:text-white">{player.name}</p>
+								<p class="text-xs text-slate-500 dark:text-slate-500">#{player.number}</p>
 							</div>
 						</div>
-						<span class="text-lg font-bold text-slate-900">{player.goals}</span>
+						<span class="text-lg font-bold text-slate-900 dark:text-white">{player.goals}</span>
 					</div>
 				{/each}
 			</div>
 		</Card>
 
-		<!-- Assistliga -->
-		<Card title="Assistkung" description="Flest assists">
+		<!-- Top Assists -->
+		<Card title="Assist Leaders" description="Most assists">
 			<div class="space-y-2">
 				{#each sortedByAssists.slice(0, 10) as player, index}
 					<div class="flex items-center justify-between py-2">
 						<div class="flex items-center gap-2">
-							<span class="w-6 text-sm font-medium text-slate-500">{index + 1}.</span>
+							<span class="w-6 text-sm font-medium text-slate-500 dark:text-slate-500">{index + 1}.</span>
 							<div>
-								<p class="text-sm font-medium text-slate-900">{player.name}</p>
-								<p class="text-xs text-slate-500">#{player.number}</p>
+								<p class="text-sm font-medium text-slate-900 dark:text-white">{player.name}</p>
+								<p class="text-xs text-slate-500 dark:text-slate-500">#{player.number}</p>
 							</div>
 						</div>
-						<span class="text-lg font-bold text-slate-900">{player.assists}</span>
+						<span class="text-lg font-bold text-slate-900 dark:text-white">{player.assists}</span>
 					</div>
 				{/each}
 			</div>
 		</Card>
 
-		<!-- Närvaro -->
-		<Card title="Närvaro" description="Flest matcher">
+		<!-- Appearances -->
+		<Card title="Appearances" description="Most matches">
 			<div class="space-y-2">
 				{#each sortedByMatches.slice(0, 10) as player, index}
 					<div class="flex items-center justify-between py-2">
 						<div class="flex items-center gap-2">
-							<span class="w-6 text-sm font-medium text-slate-500">{index + 1}.</span>
+							<span class="w-6 text-sm font-medium text-slate-500 dark:text-slate-500">{index + 1}.</span>
 							<div>
-								<p class="text-sm font-medium text-slate-900">{player.name}</p>
-								<p class="text-xs text-slate-500">#{player.number}</p>
+								<p class="text-sm font-medium text-slate-900 dark:text-white">{player.name}</p>
+								<p class="text-xs text-slate-500 dark:text-slate-500">#{player.number}</p>
 							</div>
 						</div>
-						<span class="text-lg font-bold text-slate-900">{player.matchesPlayed}</span>
+						<span class="text-lg font-bold text-slate-900 dark:text-white">{player.matchesPlayed}</span>
 					</div>
 				{/each}
 			</div>
 		</Card>
 	</div>
 
-	<!-- Positionsfördelning -->
-	<Card title="Positionsfördelning" description="Spelare per position">
+	<!-- Position Distribution -->
+	<Card title="Position Distribution" description="Players per position">
 		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-			{#each ['Målvakt', 'Försvarare', 'Mittfältare', 'Forward'] as position}
+			{#each ['Goalkeeper', 'Defender', 'Midfielder', 'Forward'] as position}
 				{@const count = players.filter((p) => p.position === position).length}
-				<div class="rounded-lg bg-slate-50 p-4">
-					<p class="text-sm font-medium text-slate-600">{position}</p>
-					<p class="mt-2 text-3xl font-bold text-slate-900">{count}</p>
-					<p class="mt-1 text-xs text-slate-500">spelare</p>
+				<div class="rounded-lg bg-slate-50 p-4 dark:bg-slate-800">
+					<p class="text-sm font-medium text-slate-600 dark:text-slate-400">{position}</p>
+					<p class="mt-2 text-3xl font-bold text-slate-900 dark:text-white">{count}</p>
+					<p class="mt-1 text-xs text-slate-500 dark:text-slate-500">players</p>
 				</div>
 			{/each}
 		</div>

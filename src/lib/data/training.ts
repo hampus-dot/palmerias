@@ -3,7 +3,7 @@ export interface TrainingSession {
 	date: string;
 	time: string;
 	location: string;
-	type: 'Lagtränning' | 'Matchförberedelse' | 'Taktik' | 'Fysträning';
+	type: 'Team Training' | 'Match Preparation' | 'Tactics' | 'Physical Training';
 	attendance: number[];
 	notes?: string;
 }
@@ -14,35 +14,35 @@ export const trainingSessions: TrainingSession[] = [
 		date: '2025-12-08',
 		time: '18:00 - 20:00',
 		location: 'Palmeriavallen',
-		type: 'Lagtränning',
+		type: 'Team Training',
 		attendance: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-		notes: 'Focus på bollinnehav'
+		notes: 'Focus on ball possession'
 	},
 	{
 		id: 2,
 		date: '2025-12-10',
 		time: '18:30 - 20:00',
 		location: 'Palmeriavallen',
-		type: 'Matchförberedelse',
+		type: 'Match Preparation',
 		attendance: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-		notes: 'Inför match mot Örgryte'
+		notes: 'Preparation for match against Örgryte'
 	},
 	{
 		id: 3,
 		date: '2025-12-12',
 		time: '19:00 - 20:30',
-		location: 'Inomhushall',
-		type: 'Taktik',
+		location: 'Indoor Hall',
+		type: 'Tactics',
 		attendance: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-		notes: 'Genomgång av formationer'
+		notes: 'Formation review'
 	},
 	{
 		id: 4,
 		date: '2025-12-15',
 		time: '17:00 - 18:30',
 		location: 'Palmeriavallen',
-		type: 'Fysträning',
+		type: 'Physical Training',
 		attendance: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-		notes: 'Konditions- och styrketräning'
+		notes: 'Conditioning and strength training'
 	}
 ];

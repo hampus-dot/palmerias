@@ -3,7 +3,7 @@ export interface Match {
 	date: string;
 	time: string;
 	opponent: string;
-	homeAway: 'Hemma' | 'Borta';
+	homeAway: 'Home' | 'Away';
 	result?: {
 		goalsFor: number;
 		goalsAgainst: number;
@@ -19,7 +19,7 @@ export const matches: Match[] = [
 		date: '2025-11-15',
 		time: '15:00',
 		opponent: 'Gais',
-		homeAway: 'Hemma',
+		homeAway: 'Home',
 		location: 'Palmeriavallen',
 		result: { goalsFor: 3, goalsAgainst: 1 },
 		scorers: [
@@ -36,7 +36,7 @@ export const matches: Match[] = [
 		date: '2025-11-22',
 		time: '14:00',
 		opponent: 'IFK Göteborg',
-		homeAway: 'Borta',
+		homeAway: 'Away',
 		location: 'Gamla Ullevi',
 		result: { goalsFor: 1, goalsAgainst: 2 },
 		scorers: [{ playerId: 9, goals: 1 }],
@@ -47,7 +47,7 @@ export const matches: Match[] = [
 		date: '2025-11-29',
 		time: '16:00',
 		opponent: 'BK Häcken',
-		homeAway: 'Hemma',
+		homeAway: 'Home',
 		location: 'Palmeriavallen',
 		result: { goalsFor: 2, goalsAgainst: 2 },
 		scorers: [
@@ -64,7 +64,7 @@ export const matches: Match[] = [
 		date: '2025-12-11',
 		time: '19:00',
 		opponent: 'Örgryte',
-		homeAway: 'Borta',
+		homeAway: 'Away',
 		location: 'Gamla Ullevi'
 	},
 	{
@@ -72,7 +72,7 @@ export const matches: Match[] = [
 		date: '2025-12-18',
 		time: '15:00',
 		opponent: 'Utsiktens BK',
-		homeAway: 'Hemma',
+		homeAway: 'Home',
 		location: 'Palmeriavallen'
 	}
 ];
