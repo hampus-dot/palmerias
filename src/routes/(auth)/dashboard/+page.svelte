@@ -1,5 +1,7 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
+	import TrainingAttendanceChart from '$lib/components/TrainingAttendanceChart.svelte';
+	import TacticalStats from '$lib/components/TacticalStats.svelte';
 	import { players } from '$lib/data/players';
 	import { matches } from '$lib/data/matches';
 	import { trainingSessions } from '$lib/data/training';
@@ -129,6 +131,17 @@
 				</div>
 			</Card>
 		{/if}
+	</div>
+
+	<!-- Charts Section -->
+	<div class="grid gap-6 lg:grid-cols-2">
+		<Card title="Training Attendance" description="Player participation tracking">
+			<TrainingAttendanceChart />
+		</Card>
+
+		<Card title="Tactical Analysis" description="Performance metrics & Scout AI">
+			<TacticalStats />
+		</Card>
 	</div>
 
 	<!-- Skytteliga -->
