@@ -4,11 +4,12 @@
 	import ThemeToggle from './ThemeToggle.svelte';
 
 	const navigation = [
-		{ name: 'Overview', href: '/', icon: '📊' },
+		{ name: 'Overview', href: '/dashboard', icon: '📊' },
 		{ name: 'Players', href: '/players', icon: '👥' },
 		{ name: 'Training', href: '/training', icon: '⚽' },
 		{ name: 'Matches', href: '/matches', icon: '🏆' },
-		{ name: 'Statistics', href: '/stats', icon: '📈' }
+		{ name: 'Statistics', href: '/stats', icon: '📈' },
+		{ name: 'Admin', href: '/admin', icon: '⚙️' }
 	];
 
 	function logout() {
