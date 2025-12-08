@@ -10,18 +10,41 @@
 		MapPin,
 		Zap,
 		BarChart3,
-		Dumbbell
+		Dumbbell,
+		Shield,
+		Flame,
+		Heart,
+		Star,
+		ArrowUp,
+		ArrowDown,
+		Percent,
+		Timer,
+		Medal
 	} from 'lucide-svelte';
+	import Stat from '$lib/components/ui/stat.svelte';
 	import GlowingEffect from '$lib/components/ui/glowing-effect.svelte';
 	import { players } from '$lib/data/players';
 	import { matches } from '$lib/data/matches';
 	import { trainingSessions } from '$lib/data/training';
 
+	// Player Stats
 	const totalPlayers = players.length;
 	const coaches = players.filter((p) => p.roles.includes('coach')).length;
+	const activePlayers = players.filter((p) => p.roles.includes('player')).length;
+	const goalkeepers = players.filter((p) => p.position === 'GK').length;
+	const defenders = players.filter((p) => p.position === 'DF').length;
+	const midfielders = players.filter((p) => p.position === 'MF').length;
+	const forwards = players.filter((p) => p.position === 'FW').length;
+	const avgAge = (players.reduce((sum, p) => sum + p.age, 0) / players.length).toFixed(1);
+	const avgHeight = (players.reduce((sum, p) => sum + p.height, 0) / players.length).toFixed(0);
+
+	// Goal Stats
 	const totalGoals = players.reduce((sum, p) => sum + p.goals, 0);
 	const totalAssists = players.reduce((sum, p) => sum + p.assists, 0);
+	const avgGoalsPerPlayer = (totalGoals / activePlayers).toFixed(1);
+	const avgAssistsPerPlayer = (totalAssists / activePlayers).toFixed(1);
 
+	// Match Stats
 	const playedMatches = matches.filter((m) => m.result);
 	const wins = playedMatches.filter((m) => m.result && m.result.goalsFor > m.result.goalsAgainst)
 		.length;
@@ -29,11 +52,33 @@
 		.length;
 	const losses = playedMatches.filter((m) => m.result && m.result.goalsFor < m.result.goalsAgainst)
 		.length;
+	const winRate = playedMatches.length > 0 ? ((wins / playedMatches.length) * 100).toFixed(1) : 0;
+	const goalsScored = playedMatches.reduce((sum, m) => sum + (m.result?.goalsFor || 0), 0);
+	const goalsConceded = playedMatches.reduce((sum, m) => sum + (m.result?.goalsAgainst || 0), 0);
+	const goalDifference = goalsScored - goalsConceded;
+	const avgGoalsPerMatch = playedMatches.length > 0 ? (goalsScored / playedMatches.length).toFixed(1) : 0;
+	const cleanSheets = playedMatches.filter((m) => m.result && m.result.goalsAgainst === 0).length;
 
+	// Training Stats
+	const totalTrainingSessions = trainingSessions.length;
+	const avgAttendance = trainingSessions.length > 0
+		? (trainingSessions.reduce((sum, s) => sum + s.attendance.length, 0) / trainingSessions.length).toFixed(0)
+		: 0;
+	const attendanceRate = totalPlayers > 0
+		? ((Number(avgAttendance) / totalPlayers) * 100).toFixed(1)
+		: 0;
+
+	// Top Performers
+	const topScorer = players.sort((a, b) => b.goals - a.goals)[0];
+	const topAssister = players.sort((a, b) => b.assists - a.assists)[0];
+	const mostAppearances = players.sort((a, b) => b.appearances - a.appearances)[0];
+
+	// Upcoming
 	const topScorers = [...players].sort((a, b) => b.goals - a.goals).slice(0, 3);
 	const nextMatch = matches.find((m) => !m.result);
 	const upcomingTraining = trainingSessions[0];
 	const upcomingTrainings = trainingSessions.slice(0, 3);
+	const recentMatches = [...matches].filter((m) => m.result).slice(-3);
 
 	function formatDate(dateStr: string) {
 		const date = new Date(dateStr);
@@ -43,9 +88,6 @@
 			day: 'numeric'
 		});
 	}
-
-	const winRate = playedMatches.length > 0 ? ((wins / playedMatches.length) * 100).toFixed(1) : 0;
-	const recentMatches = [...matches].filter((m) => m.result).slice(-3);
 </script>
 
 <div class="min-h-screen bg-slate-50 dark:bg-slate-950">
@@ -58,8 +100,266 @@
 				Dashboard
 			</h1>
 			<p class="text-lg text-slate-600 dark:text-slate-400">
-				Real-time analytics for Palmerias FC
+				Comprehensive analytics for Palmerias FC
 			</p>
+		</div>
+
+		<!-- Comprehensive Stats Grid -->
+		<div class="mb-8 space-y-6">
+			<!-- Team Overview -->
+			<div>
+				<h2 class="mb-4 text-xl font-semibold text-slate-900 dark:text-white">Team Overview</h2>
+				<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+					<Stat
+						title="Total Squad"
+						value={totalPlayers}
+						description="{coaches} coaches"
+						icon={Users}
+						trend="neutral"
+					/>
+					<Stat
+						title="Active Players"
+						value={activePlayers}
+						description="Currently playing"
+						icon={Star}
+						trend="neutral"
+					/>
+					<Stat
+						title="Average Age"
+						value="{avgAge} years"
+						description="Squad average"
+						icon={Activity}
+						trend="neutral"
+					/>
+					<Stat
+						title="Avg Height"
+						value="{avgHeight} cm"
+						description="Physical profile"
+						icon={ArrowUp}
+						trend="neutral"
+					/>
+				</div>
+			</div>
+
+			<!-- Match Performance -->
+			<div>
+				<h2 class="mb-4 text-xl font-semibold text-slate-900 dark:text-white">Match Performance</h2>
+				<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+					<Stat
+						title="Win Rate"
+						value="{winRate}%"
+						description="{wins} wins"
+						icon={Trophy}
+						trend="up"
+						trendValue="+{wins}W"
+					/>
+					<Stat
+						title="Matches Played"
+						value={playedMatches.length}
+						description="{draws}D {losses}L"
+						icon={Calendar}
+						trend="neutral"
+					/>
+					<Stat
+						title="Goals Scored"
+						value={goalsScored}
+						description="In {playedMatches.length} matches"
+						icon={Target}
+						trend="up"
+						trendValue="+{avgGoalsPerMatch}/game"
+					/>
+					<Stat
+						title="Goals Conceded"
+						value={goalsConceded}
+						description="Defense record"
+						icon={Shield}
+						trend={goalsConceded < goalsScored ? 'up' : 'down'}
+					/>
+					<Stat
+						title="Goal Difference"
+						value={goalDifference > 0 ? `+${goalDifference}` : goalDifference}
+						description="Season difference"
+						icon={TrendingUp}
+						trend={goalDifference > 0 ? 'up' : goalDifference < 0 ? 'down' : 'neutral'}
+					/>
+				</div>
+			</div>
+
+			<!-- Goal Statistics -->
+			<div>
+				<h2 class="mb-4 text-xl font-semibold text-slate-900 dark:text-white">Goal Statistics</h2>
+				<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+					<Stat
+						title="Total Goals"
+						value={totalGoals}
+						description="Season total"
+						icon={Target}
+						trend="up"
+						trendValue="{avgGoalsPerPlayer} per player"
+					/>
+					<Stat
+						title="Total Assists"
+						value={totalAssists}
+						description="Team assists"
+						icon={Zap}
+						trend="up"
+						trendValue="{avgAssistsPerPlayer} per player"
+					/>
+					<Stat
+						title="Clean Sheets"
+						value={cleanSheets}
+						description="Matches without conceding"
+						icon={Shield}
+						trend="up"
+					/>
+					<Stat
+						title="Goals/Match"
+						value={avgGoalsPerMatch}
+						description="Average per game"
+						icon={Flame}
+						trend="up"
+					/>
+				</div>
+			</div>
+
+			<!-- Position Breakdown -->
+			<div>
+				<h2 class="mb-4 text-xl font-semibold text-slate-900 dark:text-white">Squad Composition</h2>
+				<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+					<Stat
+						title="Goalkeepers"
+						value={goalkeepers}
+						description="GK position"
+						icon={Shield}
+						trend="neutral"
+					/>
+					<Stat
+						title="Defenders"
+						value={defenders}
+						description="DF position"
+						icon={Shield}
+						trend="neutral"
+					/>
+					<Stat
+						title="Midfielders"
+						value={midfielders}
+						description="MF position"
+						icon={Activity}
+						trend="neutral"
+					/>
+					<Stat
+						title="Forwards"
+						value={forwards}
+						description="FW position"
+						icon={Target}
+						trend="neutral"
+					/>
+				</div>
+			</div>
+
+			<!-- Training Stats -->
+			<div>
+				<h2 class="mb-4 text-xl font-semibold text-slate-900 dark:text-white">Training & Discipline</h2>
+				<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+					<Stat
+						title="Training Sessions"
+						value={totalTrainingSessions}
+						description="Total scheduled"
+						icon={Dumbbell}
+						trend="up"
+					/>
+					<Stat
+						title="Avg Attendance"
+						value={avgAttendance}
+						description="players per session"
+						icon={Users}
+						trend="up"
+						trendValue="{attendanceRate}%"
+					/>
+					<Stat
+						title="Attendance Rate"
+						value="{attendanceRate}%"
+						description="Overall participation"
+						icon={Percent}
+						trend="up"
+					/>
+				</div>
+			</div>
+
+			<!-- Top Performers -->
+			<div>
+				<h2 class="mb-4 text-xl font-semibold text-slate-900 dark:text-white">Top Performers</h2>
+				<div class="grid gap-4 md:grid-cols-3">
+					<Stat
+						title="Top Scorer"
+						value={topScorer.name}
+						description="{topScorer.goals} goals this season"
+						icon={Medal}
+						trend="up"
+					>
+						<div class="flex items-center gap-2">
+							<div class="flex-1">
+								<div class="mb-1 flex items-center justify-between text-xs">
+									<span class="text-slate-600 dark:text-slate-400">Performance</span>
+									<span class="font-semibold text-slate-900 dark:text-white">{topScorer.goals} goals</span>
+								</div>
+								<div class="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+									<div
+										class="h-full bg-gradient-to-r from-orange-500 to-red-500"
+										style="width: {(topScorer.goals / totalGoals) * 100}%"
+									></div>
+								</div>
+							</div>
+						</div>
+					</Stat>
+
+					<Stat
+						title="Top Assister"
+						value={topAssister.name}
+						description="{topAssister.assists} assists"
+						icon={Zap}
+						trend="up"
+					>
+						<div class="flex items-center gap-2">
+							<div class="flex-1">
+								<div class="mb-1 flex items-center justify-between text-xs">
+									<span class="text-slate-600 dark:text-slate-400">Performance</span>
+									<span class="font-semibold text-slate-900 dark:text-white">{topAssister.assists} assists</span>
+								</div>
+								<div class="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+									<div
+										class="h-full bg-gradient-to-r from-purple-500 to-blue-500"
+										style="width: {(topAssister.assists / totalAssists) * 100}%"
+									></div>
+								</div>
+							</div>
+						</div>
+					</Stat>
+
+					<Stat
+						title="Most Appearances"
+						value={mostAppearances.name}
+						description="{mostAppearances.appearances} matches"
+						icon={Star}
+						trend="up"
+					>
+						<div class="flex items-center gap-2">
+							<div class="flex-1">
+								<div class="mb-1 flex items-center justify-between text-xs">
+									<span class="text-slate-600 dark:text-slate-400">Played</span>
+									<span class="font-semibold text-slate-900 dark:text-white">{mostAppearances.appearances} games</span>
+								</div>
+								<div class="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+									<div
+										class="h-full bg-gradient-to-r from-green-500 to-emerald-500"
+										style="width: {(mostAppearances.appearances / playedMatches.length) * 100}%"
+									></div>
+								</div>
+							</div>
+						</div>
+					</Stat>
+				</div>
+			</div>
 		</div>
 
 		<!-- Glowing Grid Layout -->
