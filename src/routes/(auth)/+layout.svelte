@@ -3,7 +3,7 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import { theme } from '$lib/stores/theme';
+	import { ModeWatcher } from 'mode-watcher';
 
 	let { children } = $props();
 
@@ -13,16 +13,6 @@
 		if (!user) {
 			goto('/login');
 		}
-
-		// Apply theme
-		document.documentElement.classList.toggle('dark', $theme === 'dark');
-	});
-
-	// Watch for theme changes
-	$effect(() => {
-		if (typeof document !== 'undefined') {
-			document.documentElement.classList.toggle('dark', $theme === 'dark');
-		}
 	});
 </script>
 
@@ -30,4 +20,5 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
+<ModeWatcher />
 {@render children()}
